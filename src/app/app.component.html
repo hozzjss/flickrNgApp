@@ -1,3 +1,7 @@
-<h1>
-  {{title}}
-</h1>
+<div class="container">
+    <app-header *ngIf="data.loggedIn"></app-header>
+    <div class="container">
+        <h2 *ngIf="!data.loggedIn">Redirecting...</h2>
+        <router-outlet *ngIf="data.loggedIn"></router-outlet>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+.thumbnail {
+    height: 550px;
+}
+
+@media screen and (min-width: 1000px) {
+    img.img-responsive {
+        width: 500px;
+    }
+}
+@media screen and (min-width: 786px) {
+    img.img-responsive {
+        width: 300px;
+    }
+}
+@media screen and (min-width: 320px) {
+    img.img-responsive {
+        width: 300px;
+    }
+}
