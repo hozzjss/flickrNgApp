@@ -10,12 +10,12 @@ import { DataService } from "app/services/data/data.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
   constructor(
     private flickr: FlickrService,
-    private data: DataService
+    public data: DataService
   ) { }
 
   ngOnInit() {

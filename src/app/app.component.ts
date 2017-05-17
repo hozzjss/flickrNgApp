@@ -6,7 +6,7 @@ import { DataService } from "app/services/data/data.service";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   loggedIn: boolean;
@@ -15,11 +15,21 @@ export class AppComponent implements OnInit {
   constructor(
     private flickr: FlickrService,
     private search: SearchService,
-    private data: DataService
+    public data: DataService
   ) { 
   }
-
+  onScroll() {
+    console.log("Scrolling...")
+    // implement page loading by per_page and page in notInSet
+    if (location.href.indexOf("dashboard") !== -1) {
+      this.data.morePhotos()
+    }
+    if (location.href.indexOf("galleries") !== -1) {
+      this.data.moreGalleries()
+    }
+  }
   ngOnInit(): void {
     this.data.ngOnInit()
   }
+  
 }

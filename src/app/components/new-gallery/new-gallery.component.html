@@ -1,0 +1,13 @@
+<div class="container col-md-12 col-lg-12 col-xs-12">
+  <form (submit)="submit(title.value, desc.value)" id="up-form" name="up-form">
+    <div class="form-group">
+      <label for="title">Gallery title</label>
+      <input #title name="title" type="text" class="form-control" id="title" autofocus>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input #desc type="text" name="description" class="form-control" id="description">
+    </div>
+    <input type="submit" class="btn btn-default" name="submit" value="Create" />
+  </form>
+</div>

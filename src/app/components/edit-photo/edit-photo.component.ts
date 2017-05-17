@@ -11,11 +11,10 @@ import { Location } from '@angular/common'
 @Component({
   selector: 'app-edit-photo',
   templateUrl: './edit-photo.component.html',
-  styleUrls: ['./edit-photo.component.scss']
+  styleUrls: ['./edit-photo.component.css']
 })
 export class EditPhotoComponent implements OnInit {
   edited: string;
-  photoToEdit = new Subject<Photo>();
   img: ImgItem
   constructor(
     private route: ActivatedRoute,

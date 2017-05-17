@@ -9,7 +9,7 @@ import { DataService } from "app/services/data/data.service";
 @Component({
   selector: 'app-photo',
   templateUrl: './photo.component.html',
-  styleUrls: ['./photo.component.scss']
+  styleUrls: ['./photo.component.css']
 })
 export class PhotoComponent implements OnInit {
   @Input() img: ImgItem

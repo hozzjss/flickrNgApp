@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from 'app/services/auth/auth.service';
 import { Http, Response } from '@angular/http';
-import { parseParams, generateParams } from 'app/util/util'
+import { parseParams, generateParams, generateSig } from 'app/util/util'
 import { Params } from '@angular/router';
 import { directory } from './flickr.directory';
 import { Subject } from 'rxjs/Subject';
@@ -11,12 +11,13 @@ import { Comments } from 'app/models/comments.model';
 import { Observable } from 'rxjs/Observable';
 import { Tags } from 'app/models/tags.model';
 import { PhotoInfo } from "app/models/photo-info.model";
+import { MD5 } from 'crypto-js';
+import { UploadSettings } from "app/models/upload-settings.model";
 
 @Injectable()
 export class FlickrService {
   // this should be the user's token
-  private token: string;
-  public photos = new Subject<Photo[]>()
+  public photos = new Subject<Photos>()
   // this is the ingredient needed to cook 'token'
   private frob: string;
   // authData contains 'token' and other data related to the user
@@ -41,24 +42,43 @@ export class FlickrService {
     }
   }
 
-  // getAccessToken(): Observable<Response> {
-  //   return this.auth.getToken()
-  // }
+  uploadPhoto(settings: Params, form: HTMLFormElement) {
+    const UPLOAD_API = 'https://up.flickr.com/services/upload/?';
+    return this.http.post(UPLOAD_API + parseParams(settings), new FormData(form))
+  }
+  
+  uploadData(title: string, description: string): Params {
+    const CONSUMER_KEY: string = 'd233b1ab49300a208f6d183170da04b6';
+    const CONSUMER_SECRET: string = 'ad3fdc9939d4305e';
+    return {
+      "api_key": CONSUMER_KEY,
+      "auth_token": this.authData.auth.token._content,
+      "format": "json",
+      "nojsoncallback": "1",
+      "sig": generateSig([
+        "auth_token" + this.authData.auth.token._content,
+        "description" + description,
+        "title" + title,
+        'format' + 'json',
+        'nojsoncallback' + '1',
+      ]),
+    }
+  }
 
   deletePhoto(photoId: string) {
     let params: Params = generateParams(this.authData, directory.DeletePhoto, [`photo_id${photoId}`]);
     return this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`)
   }
 
-  getPhotos(authData: Auth = this.authData): Subject<Photo[]> {
+  getPhotos(authData: Auth = this.authData, page: number = 1): Subject<Photos> {
     this.authData = authData
-    let params: Params = generateParams(this.authData, directory.NotInAlbum, ['per_page20']);
-    this.http.get(this.REST_API + parseParams(params) + 'per_page=20')
+    let params: Params = generateParams(this.authData, directory.NotInAlbum, ['per_page20', `page${page}`]);
+    this.http.get(this.REST_API + parseParams(params) + 'per_page=20&' + `page=${page}`)
       // when ready
       .subscribe((results: Response) => {
         // push the photos received to the photos subject
         const photoList: Photos = results.json();
-        this.photos.next(photoList.photos.photo)
+        this.photos.next(photoList)
       });
     return this.photos;
   }
@@ -76,7 +96,7 @@ export class FlickrService {
     // and give control back
     return comments;
   }
-  
+
   getInfo(photoId: string): Subject<PhotoInfo> {
     const info = new Subject<PhotoInfo>()
     const params: Params = generateParams(this.authData, directory.PhotoInfo, [`photo_id${photoId}`])

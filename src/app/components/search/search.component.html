@@ -1,24 +1,27 @@
-<div class="row">
-  <div class="col-md-6 col-xs-12 col-lg-4 form-group">
+<div class="container-fluid">
 
-    <h3>Search</h3>
-    <select #select class="form-control" (change)="searchBy($event.target.value)">
+  <div class="row">
+    <div class="col-md-6 col-xs-12 col-lg-4 form-group">
+
+      <h3>Search</h3>
+      <select #select class="form-control" (change)="searchBy($event.target.value)">
       <option value="email">Search by email</option>
       <option selected="selected" value="username">Search by username</option>
     </select>
-    <br>
-    <input class="form-control" #input (input)="terms$.next($event.target.value)">
-    <br>
-    <div *ngIf="searchResult && !searchResult.user" class="alert alert-danger">
-      Couldn't find this {{ select.value }}
-    </div>
-    <div *ngIf="searchResult && searchResult.user && input.value.length > 3">
-      <h4>Results:</h4>
-      <blockquote>
-        <a [href]="'https://www.flickr.com/photos/' + searchResult.user.nsid" target="_blank">
-          <p>{{ searchResult.stat !== "ok"? "Not Found" : searchResult.user.username._content }}</p>
-        </a>
-      </blockquote>
+      <br>
+      <input autofocus class="form-control" #input (input)="terms$.next($event.target.value)">
+      <br>
+      <div *ngIf="searchResult && !searchResult.user" class="alert alert-danger">
+        Couldn't find this {{ select.value }}
+      </div>
+      <div *ngIf="searchResult && searchResult.user && input.value.length > 3">
+        <h4>Results:</h4>
+        <blockquote>
+          <a [href]="'https://www.flickr.com/photos/' + searchResult.user.nsid" target="_blank">
+            <p>{{ searchResult.stat !== "ok"? "Not Found" : searchResult.user.username._content }}</p>
+          </a>
+        </blockquote>
+      </div>
     </div>
   </div>
 </div>

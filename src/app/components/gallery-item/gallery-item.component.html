@@ -1,0 +1,16 @@
+<div class="thumbnail">
+  <img class="img-responsive" [src]="gallery.photo" alt="">
+  <div class="caption">
+    <h3> {{ gallery.title }}</h3>
+    <div *ngIf="gallery.description">
+      <p>Description: {{ gallery.description }} </p>
+    </div>
+    <div>
+      <p>Date Created: {{ gallery.dateCreated }} </p>
+    </div>
+    <div>
+      <br>
+      <button (click)="navigate()" class="btn btn-default">Edit</button>
+    </div>
+  </div>
+</div>

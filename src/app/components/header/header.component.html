@@ -1,8 +1,16 @@
-<div class="container">
-<ul class="nav nav-tabs">
-  <li *ngFor="let link of links" routerLinkActive="active">
-    <a [routerLink]="link.href"> {{ link.name }} </a>
-  </li>
-</ul>
+<div class="container header">
+  <ul class="nav nav-tabs">
+    <li *ngFor="let link of links" class="pull-left" routerLinkActive="active">
+      <a [routerLink]="link.href"> {{ link.name }} </a>
+    </li>
+    <li role="presentation" class="pull-right dropdown">
+      <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+      Upload<span class="caret"></span>
+      </a>
+      <div class="dropdown-menu">
+        <app-upload></app-upload>
+      </div>
+    </li>
+  </ul>
 
 </div>

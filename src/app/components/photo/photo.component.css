@@ -1,0 +1,28 @@
+.thumbnail {
+    height: 500px;
+}
+
+@media screen and (min-width: 786px) {
+    img.img-responsive {
+        width: 250px;
+    }
+    .thumbnail {
+        height: 450px;
+    }
+}
+@media screen and (max-width: 786px) {
+    img.img-responsive {
+        width: 300px;
+    }
+    .thumbnail {
+        height: 500px;
+    }
+}
+@media screen and (max-width: 350px) {
+    img.img-responsive {
+        width: 180px;
+    }
+    .thumbnail {
+        height: 350px;
+    }
+}
