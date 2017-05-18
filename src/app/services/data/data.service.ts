@@ -44,11 +44,13 @@ export class DataService implements OnInit {
     this.flickr.photos
       .subscribe((photos: Photos) => {
         this.photoPages = photos.photos.pages;
+        // to support reload and not to confuse it with morePhotos()
+        this.imgItems = []
         // good ol' loops, you should visit'em sometime 
         for (var i = 0; i < photos.photos.photo.length; i++)
           this.addPhotos(photos.photos.photo[i])
       })
-    
+
   }
   getGalleries() {
     this.gallService.getGalleries(this.authData)
@@ -73,10 +75,10 @@ export class DataService implements OnInit {
     if (this.currentPageGalleries < this.galleryPages) {
       this.currentPageGalleries += 1
       this.gallService.getGalleries(this.authData, this.currentPageGalleries)
-          .subscribe(results => {
-            const res: Galleries = results.json()
-            this.galleries.push(...res.galleries.gallery.map(this.gallService.parseGallery))
-          })
+        .subscribe(results => {
+          const res: Galleries = results.json()
+          this.galleries.push(...res.galleries.gallery.map(this.gallService.parseGallery))
+        })
     }
   }
   addPhotos(photo: Photo) {
