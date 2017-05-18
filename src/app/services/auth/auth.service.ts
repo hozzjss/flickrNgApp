@@ -8,6 +8,8 @@ import { Observable } from 'rxjs/Observable';
 export class AuthService {
   // flickr's credentials
   private CONSUMER_KEY: string = 'd233b1ab49300a208f6d183170da04b6';
+  // online version
+  // private CONSUMER_KEY: string = 'c225966e0d1fa53388f3ca34fd09677e';
   // state
   private authinticated: boolean;
 

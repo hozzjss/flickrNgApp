@@ -16,6 +16,9 @@ export const generateSig = (args: string[]): string => {
     // base string: secret + 'api_key' + consumer key + 'perms' + permissions requestes
     const CONSUMER_KEY: string = 'd233b1ab49300a208f6d183170da04b6';
     const CONSUMER_SECRET: string = 'ad3fdc9939d4305e';
+    // online version
+    // const CONSUMER_KEY: string = 'c225966e0d1fa53388f3ca34fd09677e';
+    // const CONSUMER_SECRET: string = 'bbe9c3a13084f7c8';
     const baseString = CONSUMER_SECRET + ['api_key' + CONSUMER_KEY, ...args]
       // You create the signature string by joining the shared 
       // secret to the list of arguments in alphabetical order.

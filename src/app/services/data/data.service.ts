@@ -56,6 +56,7 @@ export class DataService implements OnInit {
     this.gallService.getGalleries(this.authData)
       .subscribe(results => {
         const res: Galleries = results.json();
+        this.galleries = []
         this.galleries.push(...res.galleries.gallery.map(this.gallService.parseGallery))
         this.galleryPages = this.galleryPages || res.galleries.page
         this.hasNoGalleries = !this.hasNoGalleries && this.galleries.length < 1;
