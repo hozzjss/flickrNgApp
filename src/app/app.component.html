@@ -2,7 +2,7 @@
   [infiniteScrollThrottle]="300" (scrolled)="onScroll()"
   [scrollWindow]="false">
     <app-header *ngIf="data.loggedIn"></app-header>
-    <div class="container">
+    <div class="container-fluid">
         <h2 *ngIf="!data.loggedIn">Redirecting...</h2>
         <router-outlet *ngIf="data.loggedIn"></router-outlet>
     </div>

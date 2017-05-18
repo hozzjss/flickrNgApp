@@ -16,6 +16,8 @@ export class DataService implements OnInit {
   imgItems = <ImgItem[]>[]
   galleries = <ParsedGallery[]>[]
   hasNoGalleries: boolean = false
+  hasNoPhotos: boolean = false
+  uploadSuccess: boolean = false
   authData: Auth
   photoPages: number
   currentPagePhotos: number = 1
@@ -46,6 +48,7 @@ export class DataService implements OnInit {
         this.photoPages = photos.photos.pages;
         // to support reload and not to confuse it with morePhotos()
         this.imgItems = []
+        this.hasNoPhotos = !this.hasNoPhotos && +photos.photos.total < 1;
         // good ol' loops, you should visit'em sometime 
         for (var i = 0; i < photos.photos.photo.length; i++)
           this.addPhotos(photos.photos.photo[i])

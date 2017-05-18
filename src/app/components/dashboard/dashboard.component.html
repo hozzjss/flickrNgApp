@@ -1,5 +1,16 @@
-<div class="row">
-  <div *ngFor="let img of data.imgItems" class="col-sm-6 col-xs-12 col-md-4">
-    <app-photo [img]="img"></app-photo>
+  <div class="row">
+    <!-- Start No Photos Alert -->
+    <div class="col-md-12 col-xs-12 col-lg-12 alert alert-danger" *ngIf="data.hasNoPhotos">
+      You don't seem to have any Photos! Add some now!
+    </div>
+    <!-- End No Photos Alert -->
+    <div *ngFor="let img of data.imgItems" class="col-sm-6 col-xs-12 col-md-4">
+      <app-photo [img]="img"></app-photo>
+    </div>
   </div>
+<!-- Start Photo added notification -->
+<!-- It's absolutely positioned so it needn't be inside -->
+<div class="col-md-3 upload-successful col-xs-6 col-sm-4 col-lg-2 alert alert-success" *ngIf="data.uploadSuccess">
+  Photo uploaded successfully!
 </div>
+<!-- End Photo added notification -->

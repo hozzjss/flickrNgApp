@@ -23,6 +23,9 @@ export class UploadComponent implements OnInit {
     this.flickr.uploadPhoto(this.uploadSettings ,form)
         .subscribe(results => {
           this.data.reload()
+          document.querySelector("form").reset()
+          this.data.uploadSuccess = true;
+          setTimeout(()=>this.data.uploadSuccess = false, 2000)
         })
   }
   ngOnInit() {
