@@ -24,7 +24,7 @@ import { GalleryItemComponent } from "app/components/gallery-item/gallery-item.c
 import { EditGalleryComponent } from "app/components/edit-gallery/edit-gallery.component";
 import { NewGalleryComponent } from "app/components/new-gallery/new-gallery.component";
 import { EditGalleryService } from "app/services/edit-gallery/edit-gallery.service";
-import { WelcomeComponent } from './welcome/welcome.component';
+import { WelcomeComponent } from "app/components/welcome/welcome.component";
 
 @NgModule({
   declarations: [

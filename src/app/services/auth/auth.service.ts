@@ -10,12 +10,7 @@ export class AuthService {
   private CONSUMER_KEY: string = 'd233b1ab49300a208f6d183170da04b6';
   // online version
   // private CONSUMER_KEY: string = 'c225966e0d1fa53388f3ca34fd09677e';
-  // state
   private authinticated: boolean;
-
-  // needed to obtain the user's token
-  private frob: string;
-  // token
 
   constructor(
     private http: Http,
@@ -51,10 +46,10 @@ export class AuthService {
   // requires frob to be authenticated
   authenticate(frob: string) {
     this.authinticated = true;
-    this.frob = frob;
     this.router.navigate(['dashboard'])
+    return this.getToken(frob)
   }
-  getToken(): Observable<Response> {
+  getToken(frob: string): Observable<Response> {
     const REST_API = 'https://api.flickr.com/services/rest/?';
     // getting user's token params
     // not a cool format but the most modular and usable one by far =D
@@ -63,15 +58,24 @@ export class AuthService {
       api_sig: generateSig([
         'method' + 'flickr.auth.getToken',
         'format' + 'json',
-        'frob' + this.frob,
+        'frob' + frob,
         'nojsoncallback' + '1'
       ]),
       'format': 'json',
-      'frob': this.frob,
+      'frob': frob,
       'method': 'flickr.auth.getToken',
       'nojsoncallback': 1,
     }
     // give control back so that the token is given to who requested it
     return this.http.get(REST_API + parseParams(params))
+  }
+  stayLoggedIn(token: string, nsid: string) {
+    localStorage.setItem('token', token)
+    localStorage.setItem('nsid', nsid)
+  }
+
+  logout() {
+    localStorage.clear()
+    location.assign(location.origin)
   }
 }

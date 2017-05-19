@@ -19,7 +19,7 @@ export class EditPhotoService {
   
   submitChanges(img: ImgItem): Subject<boolean> {
     const state = new Subject<boolean>()
-    const params: Params = generateParams(this.data.authData, 
+    const params: Params = generateParams(this.data.token, 
     directory.ChangeDescription, [`description${img.description}`,`title${img.title}`, `photo_id${img.id}`])
     this.http.get(this.REST_API + parseParams(params) + 
       `description=${img.description}&title=${img.title}&photo_id=${img.id}`)

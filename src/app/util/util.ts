@@ -35,18 +35,18 @@ export const redirectTo = (site: string): void => {
 }
 
 // this generates common params instead of having wet code, adds additional params if needed 
-export const generateParams = (data: Auth, method: string, additionalParams: string[] = ['']) => {
+export const generateParams = (token: string, method: string, additionalParams: string[] = ['']) => {
     const CONSUMER_KEY: string = 'd233b1ab49300a208f6d183170da04b6';
     return {
           'api_key': CONSUMER_KEY,
           'api_sig': generateSig([
-            'auth_token' + data.auth.token._content,
+            'auth_token' + token,
             'method' + method,
             'format' + 'json',
             'nojsoncallback' + '1',
              ...additionalParams
           ]),
-          'auth_token': data.auth.token._content,
+          'auth_token': token,
           'format': 'json',
           'method': method,
           'nojsoncallback': '1',
@@ -54,7 +54,7 @@ export const generateParams = (data: Auth, method: string, additionalParams: str
 }
 
 // abstracts away generating an img link
-export const genImgSrc = (photo: Photo, option: 'thumb' | 'medium' | 'small' | 'large' = 'thumb'): string => {
+export const genImgSrc = (photo: Photo, option:string = 'thumb'): string => {
     const sizes = {
         'thumb': 'q',
         'small': 's',

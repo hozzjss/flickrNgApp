@@ -17,7 +17,7 @@ export class UploadComponent implements OnInit {
   ) { }
 
   update(title: HTMLInputElement, desc: HTMLInputElement) {
-    this.uploadSettings = this.flickr.uploadData(title.value, desc.value)
+    this.uploadSettings = this.flickr.uploadData(title.value, desc.value, this.data.token)
   }
   submit(form: HTMLFormElement) {
     this.flickr.uploadPhoto(this.uploadSettings ,form)

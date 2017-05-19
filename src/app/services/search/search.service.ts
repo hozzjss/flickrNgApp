@@ -42,12 +42,12 @@ export class SearchService {
   }
 
   private findEmail(email) {
-    const params: Params = generateParams(this.data.authData, search.byEmail, [`find_email${email}`]);
+    const params: Params = generateParams(this.data.token, search.byEmail, [`find_email${email}`]);
     return this.http.get(this.REST_API + parseParams(params) + `find_email=${email}`)
   }
 
   private findUsername(username: string) {
-    const params: Params = generateParams(this.data.authData, search.byUsername, [`username${username}`]);
+    const params: Params = generateParams(this.data.token, search.byUsername, [`username${username}`]);
     return this.http.get(this.REST_API + parseParams(params) + `username=${username}`);
   }
 }

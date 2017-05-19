@@ -1,6 +1,4 @@
-Implement Galleries with CRUD
-    [optional] let the user choose which photos to add to the gallery
-use some sass
+[too lazy to do that] use some sass
 make some modal like interface for photo comments -PhotoDetailComponent
-make a [WelcomeComponent] with a jumbotron and a video bg or something
-up to github 
+[initial] make a [WelcomeComponent] with a jumbotron and a video bg or something
+[complete] staylogged in feature, make that

@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ImgItem } from "app/models/img.model";
 import { FlickrService } from "app/services/flickr/flickr.service";
 import { Photo, Photos } from "app/models/photos.model";
@@ -7,11 +7,13 @@ import { genImgSrc } from "app/util/util";
 import { Response } from '@angular/http'
 import { Subject } from "rxjs/Subject";
 import { AuthService } from "app/services/auth/auth.service";
-import { ParsedGallery, Galleries } from "app/models/galleries.model";
+import { ParsedGallery, Galleries, Gallery } from "app/models/galleries.model";
 import { GalleriesService } from "app/services/galleries/galleries.service";
+import { Router } from "@angular/router";
 
 @Injectable()
-export class DataService implements OnInit {
+export class DataService {
+  token: string;
   loggedIn: boolean
   imgItems = <ImgItem[]>[]
   galleries = <ParsedGallery[]>[]
@@ -19,7 +21,6 @@ export class DataService implements OnInit {
   hasNoPhotos: boolean = false
   uploadSuccess: boolean = false
   newGallerySuccess: boolean = false
-  authData: Auth
   photoPages: number
   currentPagePhotos: number = 1
   galleryPages: number
@@ -28,22 +29,23 @@ export class DataService implements OnInit {
   constructor(
     private flickr: FlickrService,
     private auth: AuthService,
-    private gallService: GalleriesService
+    private gallService: GalleriesService,
+    private router: Router
   ) { }
-  registerToken(auth: Auth) {
-    this.authData = auth;
+  registerToken(token: string) {
+    this.token = token;
   }
 
   reload() {
-    this.load(this.authData)
+    this.load(this.token)
   }
   loadMore(page: number): void {
 
   }
-  load(auth: Auth): void {
-    this.registerToken(auth)
+  load(token: string): void {
+    this.registerToken(token)
     // get Photos and their info and store them for later consumption
-    this.flickr.getPhotos(auth)
+    this.flickr.getPhotos(token)
     this.flickr.photos
       .subscribe((photos: Photos) => {
         this.photoPages = photos.photos.pages;
@@ -56,21 +58,33 @@ export class DataService implements OnInit {
       })
 
   }
+
+
   getGalleries() {
-    this.gallService.getGalleries(this.authData)
+    this.gallService.getGalleries(this.token)
       .subscribe(results => {
-        const res: Galleries = results.json();
+        const parsedResults: Galleries = results.json()
+        const rawGalleries: Gallery[] = parsedResults.galleries.gallery;
+        const galleryPages: number = parsedResults.galleries.page
+        // reset galleries
         this.galleries = []
-        this.galleries.push(...res.galleries.gallery.map(this.gallService.parseGallery))
-        this.galleryPages = this.galleryPages || res.galleries.page
+        // push received gals 'pun intended'
+        this.galleries.push(...rawGalleries.map(this.gallService.parseGallery))
+        // store how many pages of 20s the user has
+        this.galleryPages = this.galleryPages || galleryPages
+        // if the user has no galleries to notify
         this.hasNoGalleries = !this.hasNoGalleries && this.galleries.length < 1;
       });
   }
   morePhotos() {
     if (this.currentPagePhotos < this.photoPages) {
+      // flip the page
       this.currentPagePhotos += 1
-      this.flickr.getPhotos(this.authData, this.currentPagePhotos)
+      // get more photos and then add them
+      this.flickr.getPhotos(this.token, this.currentPagePhotos)
         .subscribe(photos => {
+          // loops <3
+          // push photos one by one and asyncronously add their comments
           for (var i = 0; i < photos.photos.photo.length; i++)
             this.addPhotos(photos.photos.photo[i])
         })
@@ -79,7 +93,7 @@ export class DataService implements OnInit {
   moreGalleries() {
     if (this.currentPageGalleries < this.galleryPages) {
       this.currentPageGalleries += 1
-      this.gallService.getGalleries(this.authData, this.currentPageGalleries)
+      this.gallService.getGalleries(this.token, this.currentPageGalleries)
         .subscribe(results => {
           const res: Galleries = results.json()
           this.galleries.push(...res.galleries.gallery.map(this.gallService.parseGallery))
@@ -90,12 +104,12 @@ export class DataService implements OnInit {
     const index = this.imgItems.length
     this.imgItems[index] = {}
     this.imgItems[index].id = photo.id
-    // TODO: Wet code
+    const links = ['thumb', 'small', 'medium', 'large'].map(size => genImgSrc(photo, size));
     this.imgItems[index].link = {
-      thumb: genImgSrc(photo, 'thumb'),
-      small: genImgSrc(photo, 'small'),
-      medium: genImgSrc(photo, 'medium'),
-      large: genImgSrc(photo, 'large')
+      thumb: links[0],
+      small: links[1],
+      medium: links[2],
+      large: links[3]
     }
     this.imgItems[index].title = photo.title
     this.flickr.getComments(photo.id)
@@ -112,12 +126,18 @@ export class DataService implements OnInit {
     this.imgItems = this.imgItems.filter(item => img.id !== item.id)
   }
 
-  ngOnInit(): void {
-    this.loggedIn = this.flickr.login()
-    this.auth.getToken()
-      .filter((results) => results.json().stat === "ok")
-      .subscribe((results: Response) => {
-        this.load(results.json())
-      })
+  runApp(stayLoggedIn: boolean = false, token: string = localStorage.getItem('token'), nsid: string = localStorage.getItem('nsid')) {
+    // no token no problem!
+    if (!token) {
+      this.auth.userLogin()
+    } else {
+      // if the user chooses to stay logged in even after he reopens his browser
+      if (stayLoggedIn) {
+        this.auth.stayLoggedIn(token, nsid)
+      }
+      this.loggedIn = true;
+      this.router.navigate(['dashboard'])
+      this.load(token)
+    }
   }
 }

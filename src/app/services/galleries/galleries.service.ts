@@ -11,8 +11,8 @@ import { Auth } from "app/models/auth.model";
 
 @Injectable()
 export class GalleriesService {
+  private token: string;
   private userId: string
-  private auth: Auth
   private REST_API: string = 'https://api.flickr.com/services/rest/?'
   constructor(
     private http: Http,
@@ -37,16 +37,16 @@ export class GalleriesService {
 
   }
   create(title:string, description: string) {
-    const params: Params = generateParams(this.auth, directory.create,
+    const params: Params = generateParams(this.token, directory.create,
     [`title${title}`,`description${description}`, `primary_photo_id2780910572`])
      return this.http.get(this.REST_API + parseParams(params) 
      + `title=${title}&description=${description}&primary_photo_id=2780910572`)      
   }
   
-  getGalleries(auth:Auth = this.auth, page:number = 1) {
-    this.auth = auth
-    this.userId = this.auth.auth.user.nsid;
-    const params: Params = generateParams(auth, directory.getList, 
+  getGalleries(token:string = this.token, page:number = 1) {
+    this.token = token
+    this.userId = localStorage.getItem('nsid');
+    const params: Params = generateParams(token, directory.getList, 
     [`user_id${this.userId}`,`per_page10`, `page${page}`])
     return this.http.get(this.REST_API + parseParams(params) +
      `user_id=${this.userId}&`+`per_page=10&` + `page=${page}` )

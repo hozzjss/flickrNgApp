@@ -14,7 +14,6 @@ import { DataService } from "app/services/data/data.service";
 })
 export class DashboardComponent implements OnInit {
   constructor(
-    private flickr: FlickrService,
     public data: DataService
   ) { }
 

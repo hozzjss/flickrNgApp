@@ -17,7 +17,7 @@ export class EditGalleryService {
   
   submitChanges(gallery: ParsedGallery): Subject<boolean> {
     const state = new Subject<boolean>()
-    const params: Params = generateParams(this.data.authData, 
+    const params: Params = generateParams(this.data.token, 
     'flickr.galleries.editMeta', [`description${gallery.description}`,`title${gallery.title}`, `gallery_id${gallery.id}`])
     this.http.get(this.REST_API + parseParams(params) + 
       `description=${gallery.description}&title=${gallery.title}&gallery_id=${gallery.id}`)

@@ -4,6 +4,9 @@
       <a [routerLink]="link.href"> {{ link.name }} </a>
     </li>
     <li role="presentation" class="pull-right dropdown">
+      <a (click)="logout()" class="pull-right" href="#">logout</a>
+    </li>
+    <li role="presentation" class="pull-right dropdown">
       <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
       Upload<span class="caret"></span>
       </a>
