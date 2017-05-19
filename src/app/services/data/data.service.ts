@@ -133,8 +133,9 @@ export class DataService {
     } else {
       // if the user chooses to stay logged in even after he reopens his browser
       if (stayLoggedIn) {
-        this.auth.stayLoggedIn(token, nsid)
+        this.auth.stayLoggedIn(token)
       }
+      localStorage.setItem('nsid', nsid)
       this.loggedIn = true;
       this.router.navigate(['dashboard'])
       this.load(token)

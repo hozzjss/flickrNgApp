@@ -13,6 +13,7 @@ import { Tags } from 'app/models/tags.model';
 import { PhotoInfo } from "app/models/photo-info.model";
 import { MD5 } from 'crypto-js';
 import { UploadSettings } from "app/models/upload-settings.model";
+import { CONSUMER_KEY } from "app/keys";
 
 @Injectable()
 export class FlickrService {
@@ -33,12 +34,6 @@ export class FlickrService {
   }
   
   uploadData(title: string, description: string, token:string): Params {
-    const CONSUMER_KEY: string = 'd233b1ab49300a208f6d183170da04b6';
-    const CONSUMER_SECRET: string = 'ad3fdc9939d4305e';
-    // online version
-    // const CONSUMER_KEY: string = 'c225966e0d1fa53388f3ca34fd09677e';
-    // const CONSUMER_SECRET: string = 'bbe9c3a13084f7c8';
-    
     return {
       "api_key": CONSUMER_KEY,
       "auth_token": token,

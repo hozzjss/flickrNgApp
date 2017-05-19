@@ -3,13 +3,10 @@ import { Http, Response } from '@angular/http';
 import { parseParams, redirectTo, generateSig } from 'app/util/util';
 import { Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { CONSUMER_KEY } from "app/keys";
 
 @Injectable()
 export class AuthService {
-  // flickr's credentials
-  private CONSUMER_KEY: string = 'd233b1ab49300a208f6d183170da04b6';
-  // online version
-  // private CONSUMER_KEY: string = 'c225966e0d1fa53388f3ca34fd09677e';
   private authinticated: boolean;
 
   constructor(
@@ -29,7 +26,7 @@ export class AuthService {
 
     // options for the login request like the app's unique key and permissions required
     const options: Params = {
-      api_key: this.CONSUMER_KEY,
+      api_key: CONSUMER_KEY,
       perms: permissions,
       api_sig: signature
     }
@@ -54,7 +51,7 @@ export class AuthService {
     // getting user's token params
     // not a cool format but the most modular and usable one by far =D
     const params: Params = {
-      api_key: this.CONSUMER_KEY,
+      api_key: CONSUMER_KEY,
       api_sig: generateSig([
         'method' + 'flickr.auth.getToken',
         'format' + 'json',
@@ -69,9 +66,8 @@ export class AuthService {
     // give control back so that the token is given to who requested it
     return this.http.get(REST_API + parseParams(params))
   }
-  stayLoggedIn(token: string, nsid: string) {
+  stayLoggedIn(token: string) {
     localStorage.setItem('token', token)
-    localStorage.setItem('nsid', nsid)
   }
 
   logout() {
