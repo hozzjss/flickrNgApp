@@ -19,8 +19,6 @@ export class AppComponent implements OnInit {
   ) { 
   }
   onScroll() {
-    console.log("Scrolling...")
-    // implement page loading by per_page and page in notInSet
     if (location.href.indexOf("dashboard") !== -1) {
       this.data.morePhotos()
     }

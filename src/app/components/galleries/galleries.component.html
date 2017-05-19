@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <!-- Start new Gallery -->
+  <!-- Start new Gallery -->
   <div class="row">
     <div class="col-md-12 col-lg-12 col-xs-12">
       <div class="dropdown pull-right">
@@ -13,21 +13,24 @@
         </div>
       </div>
     </div>
-    <!-- End new Gallery -->
-    <!-- Start No Galleries Alert -->
-    <div class="row">
-      <div class="col-md-8 col-xs-6 col-lg-8 alert alert-danger" *ngIf="data.hasNoGalleries">
-        You don't seem to have any galleries! Add some now!
-      </div>
-    </div>
-    <!-- End No Galleries Alert -->
-    <!-- Start Galleries Showcase -->
-    <div class="row">
-      <div *ngFor="let item of data.galleries" class="col-sm-6 col-xs-12 col-md-4">
-        <app-gallery-item [gallery]="item" ></app-gallery-item>
-      </div>
-    </div>
-    <!-- End Galleries Showcase -->
   </div>
+  <!-- End new Gallery -->
+  <!-- Start No Galleries Alert -->
+  <div class="row">
+    <div class="col-md-8 col-xs-6 col-lg-8 alert alert-danger" *ngIf="data.hasNoGalleries">
+      You don't seem to have any galleries! Add some now!
+    </div>
+  </div>
+  <!-- End No Galleries Alert -->
+  <!-- Start Galleries Showcase -->
+  <div class="row">
+    <div *ngFor="let item of data.galleries" class="col-sm-6 col-xs-12 col-md-4">
+      <app-gallery-item [gallery]="item"></app-gallery-item>
+    </div>
+  </div>
+  <!-- End Galleries Showcase -->
+</div>
 
+<div class="col-md-3 new-gallery-success col-xs-6 col-sm-4 col-lg-2 alert alert-success" *ngIf="data.newGallerySuccess">
+  Gallery created successfully!
 </div>

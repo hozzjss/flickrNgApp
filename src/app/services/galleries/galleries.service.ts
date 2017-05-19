@@ -39,11 +39,8 @@ export class GalleriesService {
   create(title:string, description: string) {
     const params: Params = generateParams(this.auth, directory.create,
     [`title${title}`,`description${description}`, `primary_photo_id2780910572`])
-     this.http.get(this.REST_API + parseParams(params) 
-     + `title=${title}&description=${description}&primary_photo_id=2780910572`)
-         .subscribe(results => {
-           this.getGalleries()
-         })
+     return this.http.get(this.REST_API + parseParams(params) 
+     + `title=${title}&description=${description}&primary_photo_id=2780910572`)      
   }
   
   getGalleries(auth:Auth = this.auth, page:number = 1) {

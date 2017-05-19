@@ -1,3 +1,10 @@
-.row {
+ .row {
     margin-bottom: 15px;
+}
+
+.new-gallery-success {
+    position: absolute;
+    z-index: 1;
+    top: 88%;
+    left: 4%;
 }

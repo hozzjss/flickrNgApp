@@ -18,6 +18,7 @@ export class DataService implements OnInit {
   hasNoGalleries: boolean = false
   hasNoPhotos: boolean = false
   uploadSuccess: boolean = false
+  newGallerySuccess: boolean = false
   authData: Auth
   photoPages: number
   currentPagePhotos: number = 1

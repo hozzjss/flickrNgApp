@@ -1,5 +1,5 @@
 <div class="container col-md-12 col-lg-12 col-xs-12">
-  <form (submit)="submit(title.value, desc.value)" id="up-form" name="up-form">
+  <form #form (submit)="submit(title.value, desc.value, form)" id="new-gallery-form" name="new-gallery-form">
     <div class="form-group">
       <label for="title">Gallery title</label>
       <input #title name="title" type="text" class="form-control" id="title" autofocus>
