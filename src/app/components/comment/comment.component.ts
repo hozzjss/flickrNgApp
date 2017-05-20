@@ -17,11 +17,7 @@ export class CommentComponent implements OnInit {
   @Input() comment: fComment
   editing: boolean = false
   imgSrc: string
-  toggleEdit(editEl?: HTMLInputElement) {
-    if (editEl) {
-      console.log(editEl)
-      editEl.focus()
-    }
+  toggleEdit() {
     this.editing = !this.editing;
   }
   editComment(event: KeyboardEvent, editEl: HTMLInputElement) {

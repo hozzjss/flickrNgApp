@@ -25,7 +25,6 @@ export class GalleriesService {
       secret: gallery.primary_photo_secret,
       server: gallery.primary_photo_server,
     }
-    // console.log(new Date(+gallery.date_create))
     return {
       id: gallery.id,
       title: gallery.title._content,
