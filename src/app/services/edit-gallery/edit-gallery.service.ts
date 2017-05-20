@@ -14,12 +14,17 @@ export class EditGalleryService {
     private data: DataService,
     private http: Http
   ) { }
-  
+
   submitChanges(gallery: ParsedGallery): Subject<boolean> {
     const state = new Subject<boolean>()
-    const params: Params = generateParams(this.data.token, 
-    'flickr.galleries.editMeta', [`description${gallery.description}`,`title${gallery.title}`, `gallery_id${gallery.id}`])
-    this.http.get(this.REST_API + parseParams(params) + 
+    const params: Params = generateParams(this.data.token,
+      'flickr.galleries.editMeta',
+      [
+        `description${gallery.description}`,
+        `title${gallery.title}`, `gallery_id${gallery.id}`
+      ])
+
+    this.http.get(this.REST_API + parseParams(params) +
       `description=${gallery.description}&title=${gallery.title}&gallery_id=${gallery.id}`)
       .subscribe((results) => {
         this.data.galleries = this.data.galleries.map(item => {
@@ -33,7 +38,7 @@ export class EditGalleryService {
           state.next(false);
         }
       })
-      return state;
+    return state;
   }
 
 }

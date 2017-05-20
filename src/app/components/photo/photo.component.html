@@ -1,27 +1,16 @@
 <div class="thumbnail">
   <img class="img-responsive" [src]="img.link.thumb" alt="">
   <div class="caption">
-    <h3> {{ img.title.length > 22 ? "No title" : img.title }}</h3>
+    <h3> {{ img.title }}</h3>
     <div *ngIf="img.description">
       <p> {{ img.description }} </p>
-    </div>
-    <!--<div *ngIf="img.comments?.length">-->
-      <!--<h4>Comments:</h4>
-      <div *ngFor="let comment of img.comments">
-        <p> {{ comment.realname ? comment.realname : '...' }} </p>
-        <p> {{ comment._content ? comment._content : '...' }} </p>
-      </div>-->
-    <!--</div>-->
-    <div *ngIf="img.tags?.length">
-      <span>Tags:</span>
-      <span class="label label-info" *ngFor="let tag of img.tags">
-        {{ tag._content ? tag._content : '...' }} 
-      </span>
     </div>
     <div>
       <br>
       <button (click)="deleteImg()" class="btn btn-danger">Delete</button>
       <button (click)="navigate()" class="btn btn-default">Edit</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" [attr.data-target]="'.detail-' + img.id">Comments</button>
     </div>
   </div>
 </div>
+<app-photo-detail [img]="img"></app-photo-detail>

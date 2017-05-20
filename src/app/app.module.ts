@@ -25,6 +25,9 @@ import { EditGalleryComponent } from "app/components/edit-gallery/edit-gallery.c
 import { NewGalleryComponent } from "app/components/new-gallery/new-gallery.component";
 import { EditGalleryService } from "app/services/edit-gallery/edit-gallery.service";
 import { WelcomeComponent } from "app/components/welcome/welcome.component";
+import { PhotoDetailComponent } from "app/components/photo-detail/photo-detail.component";
+import { CommentComponent } from "app/components/comment/comment.component";
+import { CommentService } from "app/services/comment/comment.service";
 
 @NgModule({
   declarations: [
@@ -39,7 +42,9 @@ import { WelcomeComponent } from "app/components/welcome/welcome.component";
     GalleryItemComponent,
     EditGalleryComponent,
     NewGalleryComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    PhotoDetailComponent,
+    CommentComponent
   ],
   imports: [
     AppRoute,
@@ -56,6 +61,7 @@ import { WelcomeComponent } from "app/components/welcome/welcome.component";
     EditPhotoService,
     GalleriesService,
     EditGalleryService,
+    CommentService,
   ],
   bootstrap: [AppComponent]
 })

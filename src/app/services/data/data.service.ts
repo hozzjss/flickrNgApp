@@ -10,21 +10,23 @@ import { AuthService } from "app/services/auth/auth.service";
 import { ParsedGallery, Galleries, Gallery } from "app/models/galleries.model";
 import { GalleriesService } from "app/services/galleries/galleries.service";
 import { Router } from "@angular/router";
+import { fComment } from "app/models/comments.model";
 
 @Injectable()
 export class DataService {
-  token: string;
-  loggedIn: boolean
-  imgItems = <ImgItem[]>[]
-  galleries = <ParsedGallery[]>[]
-  hasNoGalleries: boolean = false
-  hasNoPhotos: boolean = false
-  uploadSuccess: boolean = false
-  newGallerySuccess: boolean = false
-  photoPages: number
-  currentPagePhotos: number = 1
-  galleryPages: number
-  currentPageGalleries: number = 1
+  private stayLoggedIn: boolean = false;
+  public token: string;
+  public loggedIn: boolean
+  public imgItems = <ImgItem[]>[]
+  public galleries = <ParsedGallery[]>[]
+  public hasNoGalleries: boolean = false
+  public hasNoPhotos: boolean = false
+  public uploadSuccess: boolean = false
+  public newGallerySuccess: boolean = false
+  private photoPages: number
+  private currentPagePhotos: number = 1
+  private galleryPages: number
+  private currentPageGalleries: number = 1
 
   constructor(
     private flickr: FlickrService,
@@ -32,21 +34,18 @@ export class DataService {
     private gallService: GalleriesService,
     private router: Router
   ) { }
-  registerToken(token: string) {
+  private registerToken(token: string) {
     this.token = token;
   }
 
-  reload() {
+  public reload() {
     this.load(this.token)
   }
-  loadMore(page: number): void {
 
-  }
-  load(token: string): void {
+  private load(token: string): void {
     this.registerToken(token)
     // get Photos and their info and store them for later consumption
     this.flickr.getPhotos(token)
-    this.flickr.photos
       .subscribe((photos: Photos) => {
         this.photoPages = photos.photos.pages;
         // to support reload and not to confuse it with morePhotos()
@@ -56,11 +55,9 @@ export class DataService {
         for (var i = 0; i < photos.photos.photo.length; i++)
           this.addPhotos(photos.photos.photo[i])
       })
-
   }
 
-
-  getGalleries() {
+  public loadGals() {
     this.gallService.getGalleries(this.token)
       .subscribe(results => {
         const parsedResults: Galleries = results.json()
@@ -76,7 +73,7 @@ export class DataService {
         this.hasNoGalleries = !this.hasNoGalleries && this.galleries.length < 1;
       });
   }
-  morePhotos() {
+  public morePhotos() {
     if (this.currentPagePhotos < this.photoPages) {
       // flip the page
       this.currentPagePhotos += 1
@@ -90,7 +87,7 @@ export class DataService {
         })
     }
   }
-  moreGalleries() {
+  public moreGalleries() {
     if (this.currentPageGalleries < this.galleryPages) {
       this.currentPageGalleries += 1
       this.gallService.getGalleries(this.token, this.currentPageGalleries)
@@ -100,7 +97,7 @@ export class DataService {
         })
     }
   }
-  addPhotos(photo: Photo) {
+  private addPhotos(photo: Photo) {
     const index = this.imgItems.length
     this.imgItems[index] = {}
     this.imgItems[index].id = photo.id
@@ -114,7 +111,10 @@ export class DataService {
     this.imgItems[index].title = photo.title
     this.flickr.getComments(photo.id)
       .subscribe((comments) => {
-        this.imgItems[index].comments = comments.comments.comment
+        // store the comments in their respective photos
+        const commentsList: fComment[] = comments.comments.comment;
+        this.imgItems[index].comments = comments.comments.comment;
+        // get photo's meta
         this.flickr.getInfo(photo.id)
           .subscribe((info) => {
             this.imgItems[index].description = info.photo.description._content;
@@ -122,17 +122,18 @@ export class DataService {
           })
       })
   }
-  removeImage(img: ImgItem) {
+  public removeImage(img: ImgItem) {
     this.imgItems = this.imgItems.filter(item => img.id !== item.id)
   }
 
-  runApp(stayLoggedIn: boolean = false, token: string = localStorage.getItem('token'), nsid: string = localStorage.getItem('nsid')) {
+  public runApp(stayLoggedIn: string = localStorage.getItem('stayLoggedIn'), token: string = localStorage.getItem('token'), nsid: string = localStorage.getItem('nsid')) {
     // no token no problem!
     if (!token) {
+      // if the user chooses to stay logged in even after he reopens his browser
       this.auth.userLogin()
     } else {
-      // if the user chooses to stay logged in even after he reopens his browser
-      if (stayLoggedIn) {
+      if (stayLoggedIn !== "null") {
+        localStorage.setItem('stayLoggedIn', stayLoggedIn)
         this.auth.stayLoggedIn(token)
       }
       localStorage.setItem('nsid', nsid)

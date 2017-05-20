@@ -1,5 +1,5 @@
 import { Tag } from "app/models/tags.model";
-import {Comment} from "app/models/comments.model"
+import {fComment} from "app/models/comments.model"
 
 export interface ImgItem {
     link?: {
@@ -9,7 +9,7 @@ export interface ImgItem {
         "large": string
     },
     title?: string,
-    comments?: Comment[],
+    comments?: fComment[],
     tags?: Tag[],
     id?: string,
     description?: string 

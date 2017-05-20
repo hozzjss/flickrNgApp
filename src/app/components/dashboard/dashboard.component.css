@@ -4,3 +4,7 @@
     top: 88%;
     left: 4%;
 }
+div.row {
+    display: flex;
+    flex-wrap: wrap;
+}

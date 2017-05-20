@@ -7,7 +7,7 @@ import { directory } from './flickr.directory';
 import { Subject } from 'rxjs/Subject';
 import { Photo, Photos } from 'app/models/photos.model';
 import { Auth } from 'app/models/auth.model';
-import { Comments } from 'app/models/comments.model';
+import { fComments } from 'app/models/comments.model';
 import { Observable } from 'rxjs/Observable';
 import { Tags } from 'app/models/tags.model';
 import { PhotoInfo } from "app/models/photo-info.model";
@@ -17,8 +17,6 @@ import { CONSUMER_KEY } from "app/keys";
 
 @Injectable()
 export class FlickrService {
-  // this should be the user's token
-  public photos = new Subject<Photos>()
   // this is the ingredient needed to cook 'token'
   private token: string;
   private REST_API: string = 'https://api.flickr.com/services/rest/?';
@@ -28,12 +26,12 @@ export class FlickrService {
     private auth: AuthService
   ) { }
 
-  uploadPhoto(settings: Params, form: HTMLFormElement) {
+  public uploadPhoto(settings: Params, form: HTMLFormElement) {
     const UPLOAD_API = 'https://up.flickr.com/services/upload/?';
-    return this.http.post(UPLOAD_API + parseParams(settings), new FormData(form))
+    return this.http.post(UPLOAD_API + parseParams(settings), new FormData(form));
   }
   
-  uploadData(title: string, description: string, token:string): Params {
+  public uploadData(title: string, description: string, token:string): Params {
     return {
       "api_key": CONSUMER_KEY,
       "auth_token": token,
@@ -46,15 +44,16 @@ export class FlickrService {
         'format' + 'json',
         'nojsoncallback' + '1',
       ]),
-    }
+    };
   }
 
-  deletePhoto(photoId: string) {
+  public deletePhoto(photoId: string) {
     let params: Params = generateParams(this.token, directory.DeletePhoto, [`photo_id${photoId}`]);
-    return this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`)
+    return this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`);
   }
 
-  getPhotos(token:string = this.token, page: number = 1): Subject<Photos> {
+  public getPhotos(token:string = this.token, page: number = 1): Subject<Photos> {
+    const photos = new Subject<Photos>();
     this.token = token;
     let params: Params = generateParams(this.token, directory.NotInAlbum, ['per_page20', `page${page}`]);
     this.http.get(this.REST_API + parseParams(params) + 'per_page=20&' + `page=${page}`)
@@ -62,30 +61,30 @@ export class FlickrService {
       .subscribe((results: Response) => {
         // push the photos received to the photos subject
         const photoList: Photos = results.json();
-        this.photos.next(photoList)
+        photos.next(photoList);
       });
-    return this.photos;
+    return photos;
   }
 
-  getComments(photoId: string): Subject<Comments> {
-    const comments: Subject<Comments> = new Subject();
+  public getComments(photoId: string): Subject<fComments> {
+    const comments: Subject<fComments> = new Subject();
     // prep ingredients
-    const params: Params = generateParams(this.token, directory.PhotoComments, [`photo_id${photoId}`])
+    const params: Params = generateParams(this.token, directory.PhotoComments, [`photo_id${photoId}`]);
     // cook!
     this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`)
       .subscribe((results) => {
         // push received Comments to the subject
-        comments.next(results.json())
+        comments.next(results.json());
       })
     // and give control back
     return comments;
   }
 
-  getInfo(photoId: string): Subject<PhotoInfo> {
-    const info = new Subject<PhotoInfo>()
-    const params: Params = generateParams(this.token, directory.PhotoInfo, [`photo_id${photoId}`])
+  public getInfo(photoId: string): Subject<PhotoInfo> {
+    const info = new Subject<PhotoInfo>();
+    const params: Params = generateParams(this.token, directory.PhotoInfo, [`photo_id${photoId}`]);
     this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`)
-      .subscribe(results => info.next(results.json()))
-    return info
+      .subscribe(results => info.next(results.json()));
+    return info;
   }
 }

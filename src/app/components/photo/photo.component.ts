@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
-import { Tag } from "app/models/tags.model";
-import { Comment } from "app/models/comments.model";
 import { ImgItem } from "app/models/img.model";
 import { FlickrService } from "app/services/flickr/flickr.service";
 import { DataService } from "app/services/data/data.service";
@@ -11,7 +9,7 @@ import { DataService } from "app/services/data/data.service";
   templateUrl: './photo.component.html',
   styleUrls: ['./photo.component.css']
 })
-export class PhotoComponent implements OnInit {
+export class PhotoComponent {
   @Input() img: ImgItem
   constructor(
     private flickr: FlickrService,
@@ -26,10 +24,6 @@ export class PhotoComponent implements OnInit {
   }
   navigate() {
     this.router.navigate(['photo/', this.img.id])
-  }
-
-  ngOnInit() {
-
   }
 
 }

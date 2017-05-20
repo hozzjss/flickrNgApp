@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
           this.auth.authenticate(frob)
             .subscribe((results) => {
               const authData: Auth = results.json()
-              this.data.runApp(false, authData.auth.token._content, authData.auth.user.nsid)
+              this.data.runApp(localStorage.getItem('stayLoggedIn'), authData.auth.token._content, authData.auth.user.nsid)
             })
         }
         // if you don't have a user token stored redirect to login page

@@ -7,7 +7,7 @@ import { directory } from "app/services/edit-photo/edit.directory";
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
- 
+
 @Injectable()
 export class EditPhotoService {
   private REST_API: string = 'https://api.flickr.com/services/rest/?';
@@ -16,12 +16,18 @@ export class EditPhotoService {
     private data: DataService,
     private http: Http
   ) { }
-  
+
   submitChanges(img: ImgItem): Subject<boolean> {
     const state = new Subject<boolean>()
-    const params: Params = generateParams(this.data.token, 
-    directory.ChangeDescription, [`description${img.description}`,`title${img.title}`, `photo_id${img.id}`])
-    this.http.get(this.REST_API + parseParams(params) + 
+    const params: Params = generateParams(
+      this.data.token,
+      directory.ChangeDescription,
+      [
+        `description${img.description}`,
+        `title${img.title}`, `photo_id${img.id}`
+      ])
+      
+    this.http.get(this.REST_API + parseParams(params) +
       `description=${img.description}&title=${img.title}&photo_id=${img.id}`)
       .subscribe((results) => {
         const response = results.json().photo;
@@ -33,7 +39,7 @@ export class EditPhotoService {
           state.next(false);
         }
       })
-      return state;
+    return state;
   }
 
 }

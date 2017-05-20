@@ -1,28 +1,8 @@
 .thumbnail {
-    height: 500px;
+    display: flex;
+    flex-direction: column;
 }
 
-@media screen and (min-width: 786px) {
-    img.img-responsive {
-        width: 250px;
-    }
-    .thumbnail {
-        height: 480px;
-    }
-}
-@media screen and (max-width: 786px) {
-    img.img-responsive {
-        width: 300px;
-    }
-    .thumbnail {
-        height: 520px;
-    }
-}
-@media screen and (max-width: 350px) {
-    img.img-responsive {
-        width: 180px;
-    }
-    .thumbnail {
-        height: 400px;
-    }
+img.img-responsive {
+    width: 300px;
 }

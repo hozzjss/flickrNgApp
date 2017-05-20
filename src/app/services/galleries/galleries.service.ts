@@ -25,14 +25,15 @@ export class GalleriesService {
       secret: gallery.primary_photo_secret,
       server: gallery.primary_photo_server,
     }
-
+    // console.log(new Date(+gallery.date_create))
     return {
       id: gallery.id,
       title: gallery.title._content,
       photo: genImgSrc(photo),
       photoCount: gallery.count_photos,
       description: gallery.description._content,
-      dateCreated: new Date(+gallery.date_create).toString(),
+      // so the api returns a version of date that's missing the last three characters
+      dateCreated: new Date(+(gallery.date_create + "000")).toString(),
     }
 
   }

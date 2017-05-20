@@ -1,0 +1,11 @@
+.app-comment {
+    display: flex;
+    border-bottom: 1px solid black;
+    margin: 15px;
+}
+.app-comment .comment {
+    margin-left: 10px;
+}
+.app-comment a {
+    cursor: pointer;
+}

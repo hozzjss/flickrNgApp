@@ -15,7 +15,7 @@ export class GalleriesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.data.getGalleries()
+    this.data.loadGals()
   }
 
 }

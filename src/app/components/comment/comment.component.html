@@ -1,0 +1,19 @@
+<div class="app-comment">
+  <div class="img">
+    <img [src]="imgSrc" alt="">
+  </div>
+  <div *ngIf="!editing" class="comment">
+    <p> {{ comment.realname }} </p>
+    <p> {{ comment._content }} </p>
+    <a (click)="toggleEdit()">Edit</a>
+    <a (click)="delete()">Delete</a>
+  </div>
+  <div *ngIf="editing" class="comment">
+    <input
+    #editedComment class="editedComment"
+    (keyup)="editComment($event, editedComment)"
+    type="text" [value]="comment._content">
+    <p class="help-block">press enter to submit esc to cancel</p>
+  </div>
+
+</div>

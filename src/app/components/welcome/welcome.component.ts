@@ -17,6 +17,6 @@ export class WelcomeComponent implements OnInit {
   }
 
   login(remember: HTMLInputElement): void {
-    this.data.runApp(remember.checked)
+    this.data.runApp(String(remember.checked))
   }
 }
