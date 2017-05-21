@@ -35,6 +35,7 @@ export class CommentService {
           permalink: response.comment.permalink,
           realname: response.comment.realname
         })
+        this.data.imgItems.filter(photo => photo.id === photoId)[0].comments = commentRef
       })
   }
   edit(commentId: string, editedText: string) {

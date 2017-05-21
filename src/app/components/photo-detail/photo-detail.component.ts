@@ -13,7 +13,7 @@ export class PhotoDetailComponent implements OnInit {
   ) { }
   @Input() img:ImgItem
   comment(input: HTMLInputElement) {
-    if (input.value.trim().length > 1) {
+    if (input.value.trim().length > 0) {
       this.commentV.create(this.img.id, input.value)
       input.value = ""
     }
