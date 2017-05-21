@@ -5,11 +5,11 @@ import { DataService } from "app/services/data.service";
 import { Http } from "@angular/http";
 import { fNewCommentResponse, fComment } from "app/models/comments.model";
 import { commentDirectory } from "app/directory";
+import { REST_API } from "app/API_ENDPOINTS";
 
 
 @Injectable()
 export class CommentService {
-  private REST_API: string = 'https://api.flickr.com/services/rest/?';
   constructor(
     private data: DataService,
     private http: Http
@@ -17,7 +17,7 @@ export class CommentService {
   public create(photoId: string, comment: string) {
     const params: Params = generateParams(this.data.token,
       commentDirectory.addComment, [`comment_text${comment}`, `photo_id${photoId}`])
-    this.http.get(this.REST_API + parseParams(params) + `comment_text=${comment}&photo_id=${photoId}`)
+    this.http.get(REST_API + parseParams(params) + `comment_text=${comment}&photo_id=${photoId}`)
       .subscribe(results => {
         const response: fNewCommentResponse = results.json();
         // it's either has something or it's undefined
@@ -41,12 +41,12 @@ export class CommentService {
   edit(commentId: string, editedText: string) {
     const params: Params = generateParams(this.data.token, commentDirectory.editComment,
       [`comment_id${commentId}`, `comment_text${editedText}`]);
-    return this.http.get(this.REST_API + parseParams(params) +
+    return this.http.get(REST_API + parseParams(params) +
       `comment_id=${commentId}&comment_text=${editedText}`);
   }
   delete(commentId: string, photoId: string) {
     const params: Params = generateParams(this.data.token, commentDirectory.deleteComment, [`comment_id${commentId}`]);
-    this.http.get(this.REST_API + parseParams(params) + `comment_id=${commentId}`)
+    this.http.get(REST_API + parseParams(params) + `comment_id=${commentId}`)
       .subscribe(results => {
         this.data.imgItems.forEach(img => {
           if (img.id === photoId) {

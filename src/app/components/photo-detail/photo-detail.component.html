@@ -18,12 +18,16 @@
         <div *ngIf="!img.tags?.length" class="alert alert-info alert-dismissible">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>          No tags to show
         </div>
-        <div *ngIf="img.tags?.length">
+        <span *ngIf="img.tags?.length">
           <span>Tags:</span>
-          <app-tag [tagItem]="tag" *ngFor="let tag of img.tags"></app-tag>
-        </div>
-        <span class="label label-primary">Add tag
+          <app-tag [photoId]="img.id" [tagItem]="tag" *ngFor="let tag of img.tags"></app-tag>
+        </span>
+        <span *ngIf="!addingTag" (click)="toggleAddTag()" class="label add-tag label-primary">Add tags
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        </span>
+        <span *ngIf="addingTag" class="label">
+          <input (keyup)="handleKeyup($event)" class="new-tag form-control" type="text">
+          <p class="help-block">Separate tags by spaces, press enter to submit esc to cancel</p>
         </span>
       </div>
       <div class="modal-footer container-fluid">

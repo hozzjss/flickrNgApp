@@ -1,4 +1,4 @@
-<span class="label label-info">
+<span class="tag-content label label-info">
   {{ tagItem._content ? tagItem._content : '...' }} 
-  <span aria-hidden="true">&times;</span>
+  <span class="delete" (click)="delete()" aria-hidden="true">&times;</span>
 </span>

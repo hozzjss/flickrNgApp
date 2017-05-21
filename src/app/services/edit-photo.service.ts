@@ -7,10 +7,10 @@ import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { editDirectory } from "app/directory";
+import { REST_API } from "app/API_ENDPOINTS";
 
 @Injectable()
 export class EditPhotoService {
-  private REST_API: string = 'https://api.flickr.com/services/rest/?';
 
   constructor(
     private data: DataService,
@@ -27,7 +27,7 @@ export class EditPhotoService {
         `title${img.title}`, `photo_id${img.id}`
       ])
       
-    this.http.get(this.REST_API + parseParams(params) +
+    this.http.get(REST_API + parseParams(params) +
       `description=${img.description}&title=${img.title}&photo_id=${img.id}`)
       .subscribe((results) => {
         const response = results.json().photo;

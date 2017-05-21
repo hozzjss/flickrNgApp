@@ -6,3 +6,21 @@
     flex-grow: 2;
     margin-right: 10px;
 }
+.add-tag {
+    cursor: pointer;
+    margin-bottom: 36px;
+    display: inline-block;
+}
+.new-tag {
+    background: #337ab7;
+    color: #fff;
+    width: 70px;
+    display: inline-block;
+    height: 17px;
+    padding: 0px;
+    font-size: inherit;
+}
+.help-block {
+    margin: 6px 0 0 4px;
+    text-align: left;
+}

@@ -8,12 +8,12 @@ import { Galleries, Gallery, ParsedGallery } from "app/models/galleries.model";
 import { Photo, Photos } from "app/models/photos.model";
 import { FlickrService } from "app/services/flickr.service";
 import { Auth } from "app/models/auth.model";
+import { REST_API } from "app/API_ENDPOINTS";
 
 @Injectable()
 export class GalleriesService {
   private token: string;
   private userId: string
-  private REST_API: string = 'https://api.flickr.com/services/rest/?'
   constructor(
     private http: Http,
     private flickr: FlickrService
@@ -39,7 +39,7 @@ export class GalleriesService {
   create(title:string, description: string) {
     const params: Params = generateParams(this.token, galleriesDirectory.create,
     [`title${title}`,`description${description}`, `primary_photo_id2780910572`])
-     return this.http.get(this.REST_API + parseParams(params) 
+     return this.http.get(REST_API + parseParams(params) 
      + `title=${title}&description=${description}&primary_photo_id=2780910572`)      
   }
   
@@ -48,7 +48,7 @@ export class GalleriesService {
     this.userId = localStorage.getItem('nsid');
     const params: Params = generateParams(token, galleriesDirectory.getList, 
     [`user_id${this.userId}`,`per_page10`, `page${page}`])
-    return this.http.get(this.REST_API + parseParams(params) +
+    return this.http.get(REST_API + parseParams(params) +
      `user_id=${this.userId}&`+`per_page=10&` + `page=${page}` )
   }
 }

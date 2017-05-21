@@ -14,5 +14,15 @@ export interface Tag {
   'authorname': string,
   'raw': string,
   '_content': string,
-  'machine_tag': boolean
+  'machine_tag': number
+}
+
+export interface newTag {
+  "id": string,
+  "author": string,
+  "authorname": string,
+  "raw": string,
+  "machine_tag": number,
+  "_content": string,
+  "full_tag_id": string,
 }

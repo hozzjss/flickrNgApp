@@ -1,16 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Tag } from "app/models/tags.model";
+import { TagService } from "app/services/tag.service";
 
 @Component({
   selector: 'app-tag',
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.css']
 })
-export class TagComponent implements OnInit {
+export class TagComponent {
 
-  constructor() { }
+  constructor(
+    private tagService: TagService
+  ) { }
   @Input() tagItem: Tag
-  ngOnInit() {
+  @Input() photoId: string
+  delete() {
+    this.tagService.delete(this.tagItem.id, this.photoId)
   }
 
 }

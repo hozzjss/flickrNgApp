@@ -4,6 +4,7 @@ import { parseParams, redirectTo, generateSig } from 'app/util/util';
 import { Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { CONSUMER_KEY } from "app/keys";
+import { REST_API } from "app/API_ENDPOINTS";
 
 @Injectable()
 export class AuthService {
@@ -47,7 +48,6 @@ export class AuthService {
     return this.getToken(frob)
   }
   getToken(frob: string): Observable<Response> {
-    const REST_API = 'https://api.flickr.com/services/rest/?';
     // getting user's token params
     // not a cool format but the most modular and usable one by far =D
     const params: Params = {

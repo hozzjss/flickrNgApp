@@ -13,10 +13,10 @@ import { FlickrResult } from "app/models/result.model";
 import { Observable } from "rxjs/Observable";
 import { DataService } from "app/services/data.service";
 import { searchDirectory } from "app/directory";
+import { REST_API } from "app/API_ENDPOINTS";
 
 @Injectable()
 export class SearchService {
-  private REST_API: string = 'https://api.flickr.com/services/rest/?';
   constructor(
     private http: Http,
     private flickr: FlickrService,
@@ -43,11 +43,11 @@ export class SearchService {
 
   private findEmail(email) {
     const params: Params = generateParams(this.data.token, searchDirectory.byEmail, [`find_email${email}`]);
-    return this.http.get(this.REST_API + parseParams(params) + `find_email=${email}`)
+    return this.http.get(REST_API + parseParams(params) + `find_email=${email}`)
   }
 
   private findUsername(username: string) {
     const params: Params = generateParams(this.data.token, searchDirectory.byUsername, [`username${username}`]);
-    return this.http.get(this.REST_API + parseParams(params) + `username=${username}`);
+    return this.http.get(REST_API + parseParams(params) + `username=${username}`);
   }
 }

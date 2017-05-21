@@ -5,10 +5,10 @@ import { ParsedGallery } from "app/models/galleries.model";
 import { Params } from "@angular/router/src";
 import { generateParams, parseParams } from "app/util/util";
 import { Subject } from "rxjs/Subject";
+import { REST_API } from "app/API_ENDPOINTS";
 
 @Injectable()
 export class EditGalleryService {
-  private REST_API: string = 'https://api.flickr.com/services/rest/?';
 
   constructor(
     private data: DataService,
@@ -24,7 +24,7 @@ export class EditGalleryService {
         `title${gallery.title}`, `gallery_id${gallery.id}`
       ])
 
-    this.http.get(this.REST_API + parseParams(params) +
+    this.http.get(REST_API + parseParams(params) +
       `description=${gallery.description}&title=${gallery.title}&gallery_id=${gallery.id}`)
       .subscribe((results) => {
         this.data.galleries = this.data.galleries.map(item => {
