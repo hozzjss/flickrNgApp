@@ -8,7 +8,7 @@
     <div>
       <span>Tags:</span>
       <span *ngIf="img.tags?.length">
-        <app-tag [tagItem]="tag" *ngFor="let tag of img.tags"></app-tag>
+        <app-tag [photoId]="img.id" [tagItem]="tag" *ngFor="let tag of img.tags"></app-tag>
       </span>
     </div>
     <div>
