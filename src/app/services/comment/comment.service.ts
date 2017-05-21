@@ -20,9 +20,10 @@ export class CommentService {
     this.http.get(this.REST_API + parseParams(params) + `comment_text=${comment}&photo_id=${photoId}`)
       .subscribe(results => {
         const response: fNewCommentResponse = results.json();
-        extractIconData(response.comment.iconurls.default)
-        this.data.imgItems.filter(photo => photo.id === photoId)
-        [0].comments.push({
+        // it's either has something or it's undefined
+        const commentRef = this.data.imgItems.filter(photo => photo.id === photoId)
+        [0].comments || []
+        commentRef.push({
           _content: response.comment._content,
           author: response.comment.author,
           authorname: response.comment.authorname,
@@ -38,19 +39,19 @@ export class CommentService {
   }
   edit(commentId: string, editedText: string) {
     const params: Params = generateParams(this.data.token, directory.editComment,
-    [`comment_id${commentId}`, `comment_text${editedText}`]);
-    return this.http.get(this.REST_API + parseParams(params) + 
-    `comment_id=${commentId}&comment_text=${editedText}`);
+      [`comment_id${commentId}`, `comment_text${editedText}`]);
+    return this.http.get(this.REST_API + parseParams(params) +
+      `comment_id=${commentId}&comment_text=${editedText}`);
   }
   delete(commentId: string, photoId: string) {
     const params: Params = generateParams(this.data.token, directory.deleteComment, [`comment_id${commentId}`]);
     this.http.get(this.REST_API + parseParams(params) + `comment_id=${commentId}`)
-        .subscribe(results => {
-          this.data.imgItems.forEach(img => {
-            if (img.id === photoId) {
-              img.comments = img.comments.filter(comment => comment.id !== commentId)
-            }
-          })
+      .subscribe(results => {
+        this.data.imgItems.forEach(img => {
+          if (img.id === photoId) {
+            img.comments = img.comments.filter(comment => comment.id !== commentId)
+          }
         })
+      })
   }
 }
