@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GalleriesService } from "app/services/galleries/galleries.service";
-import { DataService } from "app/services/data/data.service";
+import { GalleriesService } from "app/services/galleries.service";
+import { DataService } from "app/services/data.service";
 
 @Component({
   selector: 'app-new-gallery',

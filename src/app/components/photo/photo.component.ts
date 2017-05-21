@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Router } from "@angular/router";
 import { ImgItem } from "app/models/img.model";
-import { FlickrService } from "app/services/flickr/flickr.service";
-import { DataService } from "app/services/data/data.service";
+import { FlickrService } from "app/services/flickr.service";
+import { DataService } from "app/services/data.service";
 
 @Component({
   selector: 'app-photo',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ParsedGallery } from "app/models/galleries.model";
-import { GalleriesService } from "app/services/galleries/galleries.service";
+import { GalleriesService } from "app/services/galleries.service";
 import { Router } from "@angular/router";
 
 @Component({

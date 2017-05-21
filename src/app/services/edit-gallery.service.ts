@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataService } from "app/services/data/data.service";
+import { DataService } from "app/services/data.service";
 import { Http } from "@angular/http";
 import { ParsedGallery } from "app/models/galleries.model";
 import { Params } from "@angular/router/src";

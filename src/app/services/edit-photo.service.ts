@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Params } from "@angular/router";
 import { generateParams, parseParams } from "app/util/util";
-import { DataService } from "app/services/data/data.service";
+import { DataService } from "app/services/data.service";
 import { ImgItem } from "app/models/img.model";
-import { directory } from "app/services/edit-photo/edit.directory";
 import { Http } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
+import { editDirectory } from "app/directory";
 
 @Injectable()
 export class EditPhotoService {
@@ -21,7 +21,7 @@ export class EditPhotoService {
     const state = new Subject<boolean>()
     const params: Params = generateParams(
       this.data.token,
-      directory.ChangeDescription,
+      editDirectory.ChangeDescription,
       [
         `description${img.description}`,
         `title${img.title}`, `photo_id${img.id}`

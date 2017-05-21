@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ImgItem } from "app/models/img.model";
-import { CommentService } from "app/services/comment/comment.service";
+import { CommentService } from "app/services/comment.service";
 
 @Component({
   selector: 'app-photo-detail',

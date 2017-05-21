@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SearchService } from "app/services/search/search.service";
+import { SearchService } from "app/services/search.service";
 import { Subject } from "rxjs/Subject";
 import { FlickrResult } from "app/models/result.model";
 import { Subscription } from "rxjs/Subscription";

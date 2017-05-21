@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ImgItem } from "app/models/img.model";
-import { FlickrService } from "app/services/flickr/flickr.service";
+import { FlickrService } from "app/services/flickr.service";
 import { Photo, Photos } from "app/models/photos.model";
 import { Auth } from "app/models/auth.model";
 import { genImgSrc } from "app/util/util";
 import { Response } from '@angular/http'
 import { Subject } from "rxjs/Subject";
-import { AuthService } from "app/services/auth/auth.service";
+import { AuthService } from "app/services/auth.service";
 import { ParsedGallery, Galleries, Gallery } from "app/models/galleries.model";
-import { GalleriesService } from "app/services/galleries/galleries.service";
+import { GalleriesService } from "app/services/galleries.service";
 import { Router } from "@angular/router";
 import { fComment } from "app/models/comments.model";
 

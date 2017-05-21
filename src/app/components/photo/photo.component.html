@@ -6,6 +6,12 @@
       <p> {{ img.description }} </p>
     </div>
     <div>
+      <span>Tags:</span>
+      <span *ngIf="img.tags?.length">
+        <app-tag [tagItem]="tag" *ngFor="let tag of img.tags"></app-tag>
+      </span>
+    </div>
+    <div>
       <br>
       <button (click)="deleteImg()" class="btn btn-danger">Delete</button>
       <button (click)="navigate()" class="btn btn-default">Edit</button>

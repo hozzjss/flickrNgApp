@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-import { FlickrService } from "app/services/flickr/flickr.service";
+import { FlickrService } from "app/services/flickr.service";
 import { Photo } from "app/models/photos.model";
 import { Subject } from "rxjs/Subject";
 import { ImgItem } from "app/models/img.model";
-import { DataService } from "app/services/data/data.service";
-import { EditPhotoService } from "app/services/edit-photo/edit-photo.service";
+import { DataService } from "app/services/data.service";
+import { EditPhotoService } from "app/services/edit-photo.service";
 import { Location } from '@angular/common'
 
 @Component({

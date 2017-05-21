@@ -1,16 +1,17 @@
-  <div class="row">
-    <!-- Start No Photos Alert -->
-    <div class="col-md-12 col-xs-12 col-lg-12 alert alert-danger" *ngIf="data.hasNoPhotos">
-      You don't seem to have any Photos! Add some now!
-    </div>
-    <!-- End No Photos Alert -->
-    <div *ngFor="let img of data.imgItems" class="col-lg-3 col-sm-6 col-xs-12 col-md-4">
-      <app-photo [img]="img"></app-photo>
-    </div>
+<div class="row">
+  <!-- Start No Photos Alert -->
+  <div class="col-md-12 col-xs-12 col-lg-12 alert alert-danger alert-dismissible" *ngIf="data.hasNoPhotos">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>    You don't seem to have any Photos! Add some now!
   </div>
+  <!-- End No Photos Alert -->
+  <div *ngFor="let img of data.imgItems" class="col-lg-3 col-sm-6 col-xs-12 col-md-4">
+    <app-photo [img]="img"></app-photo>
+  </div>
+</div>
 <!-- Start Photo added notification -->
 <!-- It's absolutely positioned so it needn't be inside -->
-<div class="col-md-3 upload-successful col-xs-6 col-sm-4 col-lg-2 alert alert-success" *ngIf="data.uploadSuccess">
+<div class="col-md-3 upload-successful col-xs-6 col-sm-4 col-lg-2 alert alert-success alert-dismissible" *ngIf="data.uploadSuccess">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   Photo uploaded successfully!
 </div>
 <!-- End Photo added notification -->

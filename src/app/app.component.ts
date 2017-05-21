@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from "app/services/data/data.service";
+import { DataService } from "app/services/data.service";
 import { Router } from "@angular/router";
-import { AuthService } from "app/services/auth/auth.service";
+import { AuthService } from "app/services/auth.service";
 import { Auth } from "app/models/auth.model";
 import { Observable } from "rxjs/Observable";
 

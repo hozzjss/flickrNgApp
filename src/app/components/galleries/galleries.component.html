@@ -17,7 +17,8 @@
   <!-- End new Gallery -->
   <!-- Start No Galleries Alert -->
   <div class="row">
-    <div class="col-md-8 col-xs-6 col-lg-8 alert alert-danger" *ngIf="data.hasNoGalleries">
+    <div class="col-md-8 col-xs-6 col-lg-8 alert alert-danger alert-dimissable" *ngIf="data.hasNoGalleries">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       You don't seem to have any galleries! Add some now!
     </div>
   </div>
@@ -31,6 +32,7 @@
   <!-- End Galleries Showcase -->
 </div>
 
-<div class="col-md-3 new-gallery-success col-xs-6 col-sm-4 col-lg-2 alert alert-success" *ngIf="data.newGallerySuccess">
+<div class="col-md-3 new-gallery-success col-xs-6 col-sm-4 col-lg-2 alert-dismissible alert alert-success" *ngIf="data.newGallerySuccess">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   Gallery created successfully!
 </div>

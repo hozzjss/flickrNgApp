@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from 'app/services/auth/auth.service';
+import { AuthService } from 'app/services/auth.service';
 import { Http, Response } from '@angular/http';
 import { parseParams, generateParams, generateSig } from 'app/util/util'
 import { Params } from '@angular/router';
-import { directory } from './flickr.directory';
 import { Subject } from 'rxjs/Subject';
 import { Photo, Photos } from 'app/models/photos.model';
 import { Auth } from 'app/models/auth.model';
@@ -14,6 +13,7 @@ import { PhotoInfo } from "app/models/photo-info.model";
 import { MD5 } from 'crypto-js';
 import { UploadSettings } from "app/models/upload-settings.model";
 import { CONSUMER_KEY } from "app/keys";
+import { flickrDirectory } from "app/directory";
 
 @Injectable()
 export class FlickrService {
@@ -48,14 +48,14 @@ export class FlickrService {
   }
 
   public deletePhoto(photoId: string) {
-    let params: Params = generateParams(this.token, directory.DeletePhoto, [`photo_id${photoId}`]);
+    let params: Params = generateParams(this.token, flickrDirectory.DeletePhoto, [`photo_id${photoId}`]);
     return this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`);
   }
 
   public getPhotos(token:string = this.token, page: number = 1): Subject<Photos> {
     const photos = new Subject<Photos>();
     this.token = token;
-    let params: Params = generateParams(this.token, directory.NotInAlbum, ['per_page20', `page${page}`]);
+    let params: Params = generateParams(this.token, flickrDirectory.NotInAlbum, ['per_page20', `page${page}`]);
     this.http.get(this.REST_API + parseParams(params) + 'per_page=20&' + `page=${page}`)
       // when ready
       .subscribe((results: Response) => {
@@ -69,7 +69,7 @@ export class FlickrService {
   public getComments(photoId: string): Subject<fComments> {
     const comments: Subject<fComments> = new Subject();
     // prep ingredients
-    const params: Params = generateParams(this.token, directory.PhotoComments, [`photo_id${photoId}`]);
+    const params: Params = generateParams(this.token, flickrDirectory.PhotoComments, [`photo_id${photoId}`]);
     // cook!
     this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`)
       .subscribe((results) => {
@@ -82,7 +82,7 @@ export class FlickrService {
 
   public getInfo(photoId: string): Subject<PhotoInfo> {
     const info = new Subject<PhotoInfo>();
-    const params: Params = generateParams(this.token, directory.PhotoInfo, [`photo_id${photoId}`]);
+    const params: Params = generateParams(this.token, flickrDirectory.PhotoInfo, [`photo_id${photoId}`]);
     this.http.get(this.REST_API + parseParams(params) + `photo_id=${photoId}`)
       .subscribe(results => info.next(results.json()));
     return info;

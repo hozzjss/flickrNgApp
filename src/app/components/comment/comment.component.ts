@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { fComment } from "app/models/comments.model";
-import { CommentService } from "app/services/comment/comment.service";
+import { CommentService } from "app/services/comment.service";
 import { genCommentIcon } from "app/util/util";
 
 @Component({

@@ -22,7 +22,8 @@
       <button (click)="back()" class="btn btn-default">Go back</button>
     </form>
     <br><br>
-    <div *ngIf="edited" [class]="'alert ' + edited" role="alert">
+    <div *ngIf="edited" [class]="'alert alert-dimissable ' + edited" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       {{ edited === 'alert-success' ? 
          'Your changes have been saved successfully':
          'Please try again another time'

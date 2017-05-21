@@ -5,14 +5,14 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/filter';
-import { search } from 'app/services/search/search.directory'
-import { FlickrService } from "app/services/flickr/flickr.service";
+import { FlickrService } from "app/services/flickr.service";
 import { Params } from "@angular/router";
 import { generateParams, parseParams, Regexes } from "app/util/util";
 import { Auth } from "app/models/auth.model";
 import { FlickrResult } from "app/models/result.model";
 import { Observable } from "rxjs/Observable";
-import { DataService } from "app/services/data/data.service";
+import { DataService } from "app/services/data.service";
+import { searchDirectory } from "app/directory";
 
 @Injectable()
 export class SearchService {
@@ -42,12 +42,12 @@ export class SearchService {
   }
 
   private findEmail(email) {
-    const params: Params = generateParams(this.data.token, search.byEmail, [`find_email${email}`]);
+    const params: Params = generateParams(this.data.token, searchDirectory.byEmail, [`find_email${email}`]);
     return this.http.get(this.REST_API + parseParams(params) + `find_email=${email}`)
   }
 
   private findUsername(username: string) {
-    const params: Params = generateParams(this.data.token, search.byUsername, [`username${username}`]);
+    const params: Params = generateParams(this.data.token, searchDirectory.byUsername, [`username${username}`]);
     return this.http.get(this.REST_API + parseParams(params) + `username=${username}`);
   }
 }

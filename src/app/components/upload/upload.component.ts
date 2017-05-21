@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FlickrService } from "app/services/flickr/flickr.service";
+import { FlickrService } from "app/services/flickr.service";
 import { UploadSettings } from "app/models/upload-settings.model";
-import { DataService } from "app/services/data/data.service";
+import { DataService } from "app/services/data.service";
 
 @Component({
   selector: 'app-upload',

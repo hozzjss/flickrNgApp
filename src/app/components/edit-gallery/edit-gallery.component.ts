@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { Location } from '@angular/common'
-import { DataService } from "app/services/data/data.service";
+import { DataService } from "app/services/data.service";
 import { ParsedGallery } from "app/models/galleries.model";
-import { EditGalleryService } from "app/services/edit-gallery/edit-gallery.service";
+import { EditGalleryService } from "app/services/edit-gallery.service";
 
 @Component({
   selector: 'app-edit-gallery',
