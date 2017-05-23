@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 @Component({
   selector: 'app-gallery-item',
   templateUrl: './gallery-item.component.html',
-  styleUrls: ['./gallery-item.component.css']
+  styleUrls: ['./gallery-item.component.scss']
 })
 export class GalleryItemComponent implements OnInit {
   @Input() gallery: ParsedGallery

@@ -5,7 +5,7 @@ import { DataService } from "app/services/data.service";
 @Component({
   selector: 'app-new-gallery',
   templateUrl: './new-gallery.component.html',
-  styleUrls: ['./new-gallery.component.css']
+  styleUrls: ['./new-gallery.component.scss']
 })
 export class NewGalleryComponent implements OnInit {
 

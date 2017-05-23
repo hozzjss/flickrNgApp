@@ -8,7 +8,7 @@ import { EditGalleryService } from "app/services/edit-gallery.service";
 @Component({
   selector: 'app-edit-gallery',
   templateUrl: './edit-gallery.component.html',
-  styleUrls: ['./edit-gallery.component.css']
+  styleUrls: ['./edit-gallery.component.scss']
 })
 export class EditGalleryComponent implements OnInit {
   edited: string;

@@ -6,7 +6,7 @@ import { Gallery } from "app/models/galleries.model";
 @Component({
   selector: 'app-galleries',
   templateUrl: './galleries.component.html',
-  styleUrls: ['./galleries.component.css']
+  styleUrls: ['./galleries.component.scss']
 })
 export class GalleriesComponent implements OnInit {
   hasGalleries: boolean

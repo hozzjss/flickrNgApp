@@ -6,7 +6,7 @@ import { TagService } from "app/services/tag.service";
 @Component({
   selector: 'app-photo-detail',
   templateUrl: './photo-detail.component.html',
-  styleUrls: ['./photo-detail.component.css']
+  styleUrls: ['./photo-detail.component.scss']
 })
 export class PhotoDetailComponent implements OnInit {
   constructor(

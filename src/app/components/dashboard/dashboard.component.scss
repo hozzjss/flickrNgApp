@@ -1,8 +1,10 @@
+$top: 88%;
+$left: 4%;
 .upload-successful {
     position: absolute;
     z-index: 1;
-    top: 88%;
-    left: 4%;
+    top: $top;
+    left: $left;
 }
 div.row {
     display: flex;

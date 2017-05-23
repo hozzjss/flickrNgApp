@@ -6,7 +6,7 @@ import { genCommentIcon } from "app/util/util";
 @Component({
   selector: 'app-comment',
   templateUrl: './comment.component.html',
-  styleUrls: ['./comment.component.css']
+  styleUrls: ['./comment.component.scss']
 })
 export class CommentComponent implements OnInit {
 

@@ -5,7 +5,7 @@ import { TagService } from "app/services/tag.service";
 @Component({
   selector: 'app-tag',
   templateUrl: './tag.component.html',
-  styleUrls: ['./tag.component.css']
+  styleUrls: ['./tag.component.scss']
 })
 export class TagComponent {
 
