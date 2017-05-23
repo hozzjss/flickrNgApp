@@ -32,7 +32,9 @@ export class AppComponent implements OnInit {
       .subscribe((res) => {
         // if you find flickr's access token then the user must have chosen to log in
         // authenticate with it and run the app
-        // runApp() stores the token in localstorage until the user logs out
+        // runApp() stores the token in localstorage 
+        // until either the user logs out if they chose to stay logged in
+        // or until they close their browser if they didn't
         if (res.length > 0) {
           const frob = res.substr(6);
           this.auth.authenticate(frob)

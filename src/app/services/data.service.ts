@@ -132,7 +132,7 @@ export class DataService {
       // if the user chooses to stay logged in even after he reopens his browser
       this.auth.userLogin()
     } else {
-      if (stayLoggedIn !== "null") {
+      if (stayLoggedIn === "true") {
         localStorage.setItem('stayLoggedIn', stayLoggedIn)
         this.auth.stayLoggedIn(token)
       }
