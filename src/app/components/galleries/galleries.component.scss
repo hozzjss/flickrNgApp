@@ -1,14 +1,11 @@
- .row {
+div.row {
     margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
 }
-
 .new-gallery-success {
     position: absolute;
     z-index: 1;
     top: 88%;
     left: 4%;
-}
-div.row {
-    display: flex;
-    flex-wrap: wrap;
 }
